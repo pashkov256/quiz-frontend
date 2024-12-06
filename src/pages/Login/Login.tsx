@@ -67,15 +67,12 @@ const Login = () => {
                         placeholder="Укажите пароль"
                         type={"password"}
                     />
-                    <Button
+                    <button
                         className={styles.loginButton}
                         type={"submit"}
-                        size="large"
-                        variant="contained"
-                        fullWidth
                     >
                         Войти
-                    </Button>
+                    </button>
                 </form>
             </div>
         </div>
