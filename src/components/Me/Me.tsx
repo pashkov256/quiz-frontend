@@ -39,7 +39,7 @@ export const Me = (props: UserProps) => {
             <div className={cls.quizList}>
                 <h3>{isMe ? "Ваши опросы" : "Квизы пользователя"}</h3>
             </div>
-            {!allQuizIsLoading ? <QuizCardList quizes={allQuiz} /> : null}
+            {(!allQuizIsLoading) ? <QuizCardList quizes={allQuiz} /> : null}
         </div>
     )
 

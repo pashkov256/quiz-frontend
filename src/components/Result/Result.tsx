@@ -2,16 +2,13 @@ import React, { useEffect, useState } from "react";
 import './Result.scss'
 
 function Result({result,questionCount}:any) {
+    const [conuntTrueAnswer,setConuntTrueAnswer] = useState(0)
 
-    let conuntTrueAnswer = 0
-//@ts-ignore
-    result.forEach(element => {
-        if(element.userAnswer){
-            conuntTrueAnswer += 1
-        }
-    });
-
-
+    useEffect(() => {
+        //@ts-ignore
+        const countTrueAnswers =result.filter(element => element.correct).length
+        setConuntTrueAnswer(countTrueAnswers)
+    }, [result]);
 
     return (
         <div className="result-wrapper">

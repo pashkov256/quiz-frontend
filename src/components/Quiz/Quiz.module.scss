@@ -1,12 +1,13 @@
 .quiz{
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   width: 70vw;
-  height: 60vh;
+  min-height:60vh;
   display: flex;
   flex-direction: column;
   align-items:center;
   border-radius:12px;
   position: relative;
+  margin-bottom: 80px;
 }
 
 .quiz-header{
@@ -25,23 +26,26 @@
 
 
 .quiz-questions{
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 12px;
-  grid-row-gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .quiz-question{
+  background-color: #fff;
+  width: 49%;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   padding: 12px;
   transition: 0.3s;
   border-radius: 8px;
-  border:0px
+  border:0px;
+
 }
 
 .quiz-question:hover{
   cursor: pointer;
+  background-color: #f5f5f5;
 }
 
 
@@ -49,23 +53,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50vw;
+  width: 100%;
+  margin-bottom: 32px;
 }
 
 
 .question-text{
   font-size: 32px;
   text-align: center;
-  margin-top: 0;
-  margin-bottom: 32px;
+  margin: 0;
 }
 
 
 .quiz-wrapper{
-  height: 100%;
-  padding: 4% 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
   min-height: 80%;
-
+  height: 100%;
+  padding: 90px 0px;
 }
 
 .btn-continue{
@@ -78,6 +85,12 @@
   border: none;
   border-radius: 12px;
   margin-top: 32px;
+  transition: 0.3s ease;
+}
+
+.btn-continue:hover{
+  cursor: pointer;
+  background-color: #1686d6;
 }
 
 .correct{
@@ -96,35 +109,61 @@
   display: flex;
   align-items: center;
   position: absolute;
-  right: 20px;
-  top: 120px;
-}
-
-.timer-text{
-  margin-right: 12px;
-  font-size: 24px;
-  font-weight: 600;
+  gap: 12px;
+  right: 32px;
+  top: 100px;
+  width: 105px;
 }
 
 .quiz-question-count{
   display: flex;
   align-items: center;
   position: absolute;
-  left: 20px;
-  top: 120px;
+  gap: 12px;
+  left: 32px;
+  top: 100px;
+
 }
 
+.timer-text{
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.quizIcons{
+  position: absolute;
+  right: 20px;
+  top: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+
+
+
 .question-count-text{
-  margin-left: 12px;
   font-size: 24px;
   font-weight: 600;
 }
 
 .timeIsLeftError{
   color: red;
-
   margin-bottom: 32px;
   font-size: 24px;
   font-weight: 700;
+}
 
+.quizImageBlock{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+  .quizImage{
+    width: 50%;
+    border-radius: 10px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 }

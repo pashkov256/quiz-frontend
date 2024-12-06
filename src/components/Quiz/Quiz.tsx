@@ -5,9 +5,11 @@ import { RiQuestionAnswerLine } from "react-icons/ri";
 import { LuTimer } from "react-icons/lu";
 import { IQuiz } from "../../model/IQuiz";
 import Result from "../Result/Result";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {SERVER_URL} from "../../const";
 import {UserContext} from "../../context/UserContext";
+import {classNames} from "../../utils/classNames";
+import {quizDateActual} from "../../utils/quizDateActual";
 const questionTimeSeconds = 15;
 
 function Quiz() {
@@ -31,6 +33,7 @@ function Quiz() {
     }>({});
     const [buttonsIsDisabled, setButtonsIsDisabled] = useState(false);
     const userData = useContext(UserContext);
+    const navigate = useNavigate()
     useEffect(() => {
         const getQuiz = async () => {
             try {
@@ -52,6 +55,13 @@ function Quiz() {
 
         getQuiz();
     }, []);
+
+    useEffect(()=>{
+        if(!quizDateActual(quiz.availableUntil || '')){
+            alert('Квиз уже не доступен')
+            navigate('/me')
+        }
+    },[quiz])
 
     useEffect(() => {
         if (secondsLeft === null) return;
@@ -106,17 +116,13 @@ function Quiz() {
     const handleNextQuestion = async () => {
         if (currentQuestion >= quiz.questions.length - 1) {
             setIsComplete(true);
-            let conuntTrueAnswer = 0
-            userAnswers.forEach(element => {
-                if(element.userAnswer){
-                    conuntTrueAnswer += 1
-                }
-            });
+            console.log()
                 try {
-                    await axios.post(`/quiz/${quizId}/save1`, {
+                    console.log("SAVE")
+                    await axios.post(`/quiz/${quizId}/pass`, {
                         userName:userData.fullName,
                         countAll:quiz.questions.length,
-                        countUser:conuntTrueAnswer,
+                        countUser:userAnswers.filter((el)=>el.correct).length,
                     })
                 }catch(error){}
         } else {
@@ -153,54 +159,65 @@ function Quiz() {
                     </Result>
                 ) : (
                     <>
-                        <div className={cls["question-text-wrapper"]}>
-                            <h3 className={cls["question-text"]}>{currentQuizQuestion.question}</h3>
-                        </div>
 
-                        <div className={cls["quiz-question-count"]}>
-                            <RiQuestionAnswerLine size={32} />
-                            <span className={cls["question-count-text"]}>{currentQuestion + 1}</span>
-                        </div>
 
-                        {secondsLeft !== null && (
-                            <div className={cls["quiz-timer"]}>
-                                <span className={cls["timer-text"]}>{secondsLeft}</span>
-                                <LuTimer size={32} />
+                            {secondsLeft !== null && (
+                                <div className={classNames(cls["quiz-timer"],{},[cls.quizIconBlock])}>
+                                    <LuTimer size={32}/>
+                                    <span className={cls["timer-text"]}>{secondsLeft}</span>
+                                </div>
+
+                            )}
+                            <div  className={classNames(cls["quiz-question-count"],{},[cls.quizIconBlock])}>
+                                <RiQuestionAnswerLine size={32}/>
+                                <span
+                                    className={cls["question-count-text"]}>{currentQuestion + 1} из {quiz.questions.length}</span>
                             </div>
-                        )}
 
-                        <div className={cls["quiz-questions"]}>
-                            {currentQuizQuestion.answerOptions.map((el, i) => {
-                                const isCorrect = el === answerStatus.correctAnswer;
-                                const isSelected = el === answerStatus.selectedAnswer;
 
-                                return (
-                                    <button
-                                        key={i}
-                                        disabled={buttonsIsDisabled}
-                                        className={`${cls["quiz-question"]} ${
-                                            isSelected
-                                                ? isCorrect
-                                                    ? cls["correct"]
-                                                    : cls["error"]
-                                                : isCorrect
-                                                    ? cls["correct"]
-                                                    : ""
-                                        }`}
-                                        onClick={() => handleAnswer(el)}
-                                    >
-                                        {el}
-                                    </button>
-                                );
-                            })}
+                        <div style={{width:'100%'}}>
+                            <div className={cls["question-text-wrapper"]}>
+                                <h3 className={cls["question-text"]}>{currentQuizQuestion.question}</h3>
+                            </div>
+
+
+                            {currentQuizQuestion.imageUrl && <div className={cls.quizImageBlock}>
+                                <img src={currentQuizQuestion.imageUrl} className={cls["quizImage"]}/>
+                            </div>}
+
+                            <div className={cls["quiz-questions"]}>
+                                {currentQuizQuestion.answerOptions.map((el, i) => {
+                                    const isCorrect = el === answerStatus.correctAnswer;
+                                    const isSelected = el === answerStatus.selectedAnswer;
+
+                                    return (
+                                        <button
+                                            key={i}
+                                            disabled={buttonsIsDisabled}
+                                            className={`${cls["quiz-question"]} ${
+                                                isSelected
+                                                    ? isCorrect
+                                                        ? cls["correct"]
+                                                        : cls["error"]
+                                                    : isCorrect
+                                                        ? cls["correct"]
+                                                        : ""
+                                            }`}
+                                            onClick={() => handleAnswer(el)}
+                                        >
+                                            {el}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+
+                            <button
+                                className={cls["btn-continue"]}
+                                onClick={handleNextQuestion}
+                            >
+                                {currentQuestion >= quiz.questions.length - 1 ? "Завершить" : "Продолжить"}
+                            </button>
                         </div>
-
-                        <button
-                            className={cls["btn-continue"]}
-                            onClick={handleNextQuestion}
-                        >
-                            {currentQuestion >= quiz.questions.length - 1 ? "Завершить" : "Продолжить"}
-                        </button>
                     </>
                 )}
             </div>

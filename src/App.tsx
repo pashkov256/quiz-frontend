@@ -10,6 +10,8 @@ import {Container} from "@mui/material";
 import {User} from "../src/pages/User/User";
 import {Me} from "../src/components/Me/Me";
 import {QuizEdit} from "../src/components/QuizEdit/QuizEdit";
+import {Registration} from "../src/pages/Registration/Registration";
+import Header from "../src/components/Header/Header";
 
 function App() {
 
@@ -19,7 +21,11 @@ function App() {
                 <Route
                     path="/login"
                     element={
-                            <Login/>
+                    <>
+                        <Header/>
+                        <Login/>
+                    </>
+
                     }
                 />
                 <Route
@@ -44,12 +50,22 @@ function App() {
 
                     }
                 />
+                <Route
+                    path="/register"
+                    element={
+                          <>
+                              <Header/>
+                              <Container maxWidth="lg">
+                                  <Registration/>
+                              </Container></>
 
+                    }
+                />
                 <Route
                     path="/quiz/:quizId"
                     element={
                         <PageLayoutAuth>
-                            <Container maxWidth="lg"  style={{display:'flex', justifyContent:'center',marginTop:'120px'}}>
+                            <Container maxWidth="lg"  style={{display:'flex', justifyContent:'center',margin:'auto',width:'1100px',paddingTop:"120px"}}>
                                 <Quiz/>
                             </Container>
                         </PageLayoutAuth>

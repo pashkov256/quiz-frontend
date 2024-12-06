@@ -22,7 +22,7 @@ function RedirectAuthRoute() {
 
     if (isAuth) {
         //@ts-ignore
-        return <Navigate to={`/user/${userData?._id}`} replace />;
+        return <Navigate to={`/me`} replace />;
     } else {
         return <Navigate to="/login" replace />;
     }

@@ -125,7 +125,7 @@ export const QuizForm = memo((props: QuizFormProps) => {
         const updatedQuestions = quizData.questions
         updatedQuestions.push( {
             questionId: newQuestionId,
-            question: "Вопрос №"+newQuestionId,
+            question: "Нажмите чтобы изменить вопрос №"+newQuestionId,
             answerOptions: [
                 "Вариант Ответа №1",
                 "Вариант Ответа №2",
@@ -205,7 +205,8 @@ export const QuizForm = memo((props: QuizFormProps) => {
                         handleTitleChange(title);
                     }}
                     textSize={InputTextSize.XL}
-
+                    placeholder={'Загаловок опроса'}
+                    style={{width:'100%'}}
                 />
             </div>
 
@@ -217,6 +218,7 @@ export const QuizForm = memo((props: QuizFormProps) => {
                             handleQuestionTextChange(question.questionId, questionValue)
                         }}
                         className={cls.QuizQuestionInput}
+                        style={{width:'100%',fontSize:"18px"}}
                     />
 
                     <div className={cls.QuizFormIcons}>
@@ -268,9 +270,7 @@ export const QuizForm = memo((props: QuizFormProps) => {
                                 handleTimeSecondsChange(question.questionId, Number(e.target.value));
 
                             }}  placeholder="Время выполнения (сек)" variant="standard"/>
-                            <TextField className={cls.input} type={"date"} onChange={(e)=>{
-                                handleQuestionAvailableUntilChange(question.questionId, e.target.value);
-                            }}  placeholder={"Доступен до"} variant="standard"/>
+
                             <TextField className={cls.input} type={"url"} value={question.imageUrl} onChange={(e)=>{
                                 handleImageURLChange(question.questionId, e.target.value);
                             }}  placeholder={"Ссылка на изображение"} variant="standard"/>

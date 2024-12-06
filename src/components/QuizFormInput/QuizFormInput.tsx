@@ -6,6 +6,8 @@ interface QuizFormInputProps {
     onChange: (value: any) => void;
     textSize?:InputTextSize;
     className?:string;
+    placeholder?:string;
+    style?:any;
 }
 
 export enum InputTextSize {
@@ -21,7 +23,7 @@ const textSizesClasses:Record<InputTextSize,string>={
 }
 
  const QuizFormInput = (props:QuizFormInputProps) => {
-    const {value,onChange,textSize = InputTextSize.LG,className} = props
+    const {value,onChange,textSize = InputTextSize.LG,className,placeholder,style} = props
 
     const [isEditing, setIsEditing] = useState(false);
 
@@ -53,6 +55,8 @@ const textSizesClasses:Record<InputTextSize,string>={
                     onChange={handleChange}
                     onBlur={handleBlur}
                     autoFocus
+                    placeholder={placeholder}
+                    style={style}
                 />
             ) : (
                 <span className={classNames(cls.span,{},[textSizesClasses[textSize]])} onClick={handleFocus}>{value || 'Нажмите чтобы изменить заголовок опроса'}</span>

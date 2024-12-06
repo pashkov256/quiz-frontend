@@ -12,7 +12,9 @@ interface HeaderProps {
 const Header = (props: HeaderProps) => {
     const {haveBorder = true} = props
     const userData = useContext(UserContext);
-    const isAuth = Boolean(userData);
+    const isAuth = Boolean(userData._id);
+    console.log(userData)
+    console.log(isAuth)
     const navigate = useNavigate();
     return (
         <div className={cls.root} style={haveBorder ? {borderBottom: "2px solid #f4f4f6"}:{}}>

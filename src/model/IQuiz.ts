@@ -20,3 +20,15 @@ export interface IAnswer {
     questionId: number,
     answer: string,
 }
+
+
+export interface IQuizResult {
+    quizId:string,
+    quizResults:IQuizResultItem[],
+}
+export interface IQuizResultItem {
+    userId:string,
+    userName:string,
+    countAll:number,
+    countUser:number,
+}
