@@ -1,17 +1,17 @@
-import React, {useEffect} from "react";
-import Quiz from "./components/Quiz/Quiz";
-import store from "./redux/store";
-import {Provider} from "react-redux";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Login from "../src/pages/Login/Login";
-import RedirectAuthRoute from "./components/RedirectAuthRoute";
-import PageLayoutAuth from "./components/PageLayoutAuth";
-import {Container} from "@mui/material";
-import {User} from "../src/pages/User/User";
-import {Me} from "../src/components/Me/Me";
-import {QuizEdit} from "../src/components/QuizEdit/QuizEdit";
-import {Registration} from "../src/pages/Registration/Registration";
+import { Container } from "@mui/material";
+import React, { useEffect } from "react";
+import { Provider } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "../src/components/Header/Header";
+import { Me } from "../src/components/Me/Me";
+import { QuizEdit } from "../src/components/QuizEdit/QuizEdit";
+import Login from "../src/pages/Login/Login";
+import { Registration } from "../src/pages/Registration/Registration";
+import { User } from "../src/pages/User/User";
+import PageLayoutAuth from "./components/PageLayoutAuth";
+import Quiz from "./components/Quiz/Quiz";
+import RedirectAuthRoute from "./components/RedirectAuthRoute";
+import store from "./redux/store";
 
 function App() {
 
@@ -60,12 +60,12 @@ function App() {
                               </Container></>
 
                     }
-                />
+                /> 
                 <Route
                     path="/quiz/:quizId"
                     element={
                         <PageLayoutAuth>
-                            <Container maxWidth="lg"  style={{display:'flex', justifyContent:'center',margin:'auto',width:'1100px',paddingTop:"120px"}}>
+                            <Container maxWidth="lg"  style={{display:'flex', justifyContent:'center',margin:'auto',width:'1100px',paddingTop:"80px"}}>
                                 <Quiz/>
                             </Container>
                         </PageLayoutAuth>
