@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const istance = axios.create({
-    baseURL: "http://localhost:3333",
+    baseURL: "https://quiz-backend-5lbl.onrender.com",
 });
 
 istance.interceptors.request.use((config) => {
